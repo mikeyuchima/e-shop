@@ -1,5 +1,6 @@
 module.exports = {
   singleQuote: true, // Use single quotes instead of double quotes.
+  jsxSingleQuote: true,
   useTabs: false, // Indent lines with tabs instead of spaces.
   printWidth: 80, // Specify the length of line that the printer will wrap on.
   tabWidth: 2, // Specify the number of spaces per indentation-level.
@@ -16,6 +17,7 @@ module.exports = {
    * If true, puts the > of a multi-line jsx element at the end of the last line instead of being
    * alone on the next line
    */
+  bracketSpacing: true,
   jsxBracketSameLine: false,
   /**
    * Specify which parse to use.
