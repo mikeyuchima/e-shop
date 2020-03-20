@@ -56,7 +56,7 @@ const StyledHeader = styled.header`
   }
 `;
 
-const Header = props => {
+const Header = props => (
   <div>
     <div className='bar'>
       <Logo>
@@ -70,5 +70,7 @@ const Header = props => {
       <p>Search</p>
     </div>
     <div>Cart</div>
-  </div>;
-};
+  </div>
+);
+
+export default Header;
