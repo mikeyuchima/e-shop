@@ -1,10 +1,7 @@
-// library
 import React, { Component } from 'react';
 import styled, { ThemeProvider, injectGlobal } from 'styled-components';
-
-//components
-import Header from '../components/Header';
-import Meta from '../components/Meta';
+import Header from './Header';
+import Meta from './Meta';
 
 const theme = {
   red: '#FF0000',
@@ -17,7 +14,7 @@ const theme = {
 };
 
 const StyledPage = styled.div`
-  background: ${props => props.theme.offWhite};
+  background: white;
   color: ${props => props.theme.black};
 `;
 
@@ -28,12 +25,12 @@ const Inner = styled.div`
 `;
 
 injectGlobal`
-@font-face {
-  font-family: 'radnika_next';
-  src: url(/static/radnikanext-medium-webfont.woff2) format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
+  @font-face {
+    font-family: 'radnika_next';
+    src: url('/static/radnikanext-medium-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
   html {
     box-sizing: border-box;
     font-size: 10px;
@@ -52,9 +49,10 @@ injectGlobal`
     text-decoration: none;
     color: ${theme.black};
   }
+  button {  font-family: 'radnika_next'; }
 `;
 
-export default class Page extends Component {
+class Page extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
@@ -67,3 +65,5 @@ export default class Page extends Component {
     );
   }
 }
+
+export default Page;

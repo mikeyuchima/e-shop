@@ -9,18 +9,18 @@ import withData from '../lib/withData';
 import Page from '../components/Page';
 
 class MyApp extends App {
-  static async getInitialProps({ Component, context }) {
+  static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(context);
+      pageProps = await Component.getInitialProps(ctx);
     }
     //this exposes query to user
-    pageProps.query = context.query;
+    pageProps.query = ctx.query;
     return { pageProps };
   }
 
   render() {
-    const { Component } = this.props;
+    const { Component, apollo, pageProps } = this.props;
 
     return (
       <Container>
