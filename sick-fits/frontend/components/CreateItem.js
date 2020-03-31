@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Router } from 'next';
+import Router from 'next/router';
 
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import Error from './ErrorMessage';
 
-const CREATE_ITEM_MUTATION = gqp`
-    mutation CREATE_ITEM_MUTATION(
-        $title: String!
-        $description: String!
-        $price: Int!
-        $image: String
-        $largeImage: String
+const CREATE_ITEM_MUTATION = gql`
+  mutation CREATE_ITEM_MUTATION(
+    $title: String!
+    $description: String!
+    $price: Int!
+    $image: String
+    $largeImage: String
+  ) {
+    createItem(
+      title: $title
+      description: $description
+      price: $price
+      image: $image
+      largeImage: $largeImage
     ) {
-        createItem(
-          title: $title
-          description: $description
-          price: $price
-          image: $image
-          largeImage: $largeImage
-        ) {
-          id
-        }
+      id
     }
+  }
 `;
 
 class CreateItem extends Component {
@@ -46,7 +46,7 @@ class CreateItem extends Component {
     const files = e.target.files;
     const data = new FormData();
     data.append('file', files[0]);
-    data.append('upload_preset', 'fits-commerce');
+    data.append('upload_preset', 'tievi6ly');
 
     const res = await fetch(
       'https://api.cloudinary.com/v1_1/fits-commerce/image/upload',
@@ -56,9 +56,10 @@ class CreateItem extends Component {
       },
     );
     const file = await res.json();
+    console.log(file);
     this.setState({
       image: file.secure_url,
-      largeImage: file.eager[0].secure_url,
+      largeImage: file.secure_url,
     });
   };
 

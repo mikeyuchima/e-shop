@@ -7,8 +7,8 @@ const Nav = props => (
     <Link href='/items'>
       <a>Shop</a>
     </Link>
-    <Link href='/sells'>
-      <a>Sells</a>
+    <Link href='/sell'>
+      <a>Sell</a>
     </Link>
     <Link href='/signup'>
       <a>Signup</a>

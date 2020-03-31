@@ -8,7 +8,7 @@ import PriceTag from './styles/PriceTag';
 import formatMoney from '../lib/formatMoney';
 import DeleteItem from './DeleteItem';
 
-export default class Item extends Component {
+class Item extends Component {
   static propTypes = {
     item: PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -17,6 +17,7 @@ export default class Item extends Component {
   };
 
   render() {
+    const { item } = this.props;
     return (
       <ItemStyles>
         {item.image && <img src={item.image} alt={item.title} />}
@@ -46,3 +47,5 @@ export default class Item extends Component {
     );
   }
 }
+
+export default Item;
