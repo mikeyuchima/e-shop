@@ -18,3 +18,5 @@ function createServer() {
     context: req => ({ ...req, db }),
   });
 }
+
+module.exports = createServer;

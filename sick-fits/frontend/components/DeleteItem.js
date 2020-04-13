@@ -30,8 +30,11 @@ class DeleteItem extends Component {
         {(deleteItem, { error }) => (
           <button
             onClick={() => {
+              console.log(`props: ${this.props.id}`);
               if (confirm('Are you sure?')) {
-                deleteItem();
+                deleteItem().catch(err => {
+                  alert(err.message);
+                });
               }
             }}
           >

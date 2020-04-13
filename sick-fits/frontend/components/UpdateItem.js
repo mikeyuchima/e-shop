@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Router } from 'next';
+import Router from 'next/router';
 
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import Error from './ErrorMessage';
 
-const UPDATE_ITEM_MUTATION = gqp`
-    mutation UPDATE_ITEM_MUTATION(
-        $title: String!
-        $description: String!
-        $price: Int!
-        $image: String
-        $largeImage: String
+const UPDATE_ITEM_MUTATION = gql`
+  mutation UPDATE_ITEM_MUTATION(
+    $title: String!
+    $description: String!
+    $price: Int!
+    $image: String
+    $largeImage: String
+  ) {
+    createItem(
+      title: $title
+      description: $description
+      price: $price
+      image: $image
+      largeImage: $largeImage
     ) {
-        createItem(
-          title: $title
-          description: $description
-          price: $price
-          image: $image
-          largeImage: $largeImage
-        ) {
-          id
-        }
+      id
     }
+  }
 `;
 
 class UpdateItem extends Component {
