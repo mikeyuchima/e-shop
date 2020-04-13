@@ -24,8 +24,9 @@ module.exports = {
    * Valid options:
    *   - "flow"
    *   - "babylon"
+   *   - "babel"
    */
-  parser: 'babylon',
+  parser: 'babel',
   /**
    * Do not print semicolons, except at the beginning of lines which may need them.
    * Valid options:

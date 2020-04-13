@@ -21,13 +21,15 @@ class Item extends Component {
     return (
       <ItemStyles>
         {item.image && <img src={item.image} alt={item.title} />}
-        <Title
-          href={{
-            pathname: '/item',
-            query: { id: item.id },
-          }}
-        >
-          <Link>{item.title}</Link>
+        <Title>
+          <Link
+            href={{
+              pathname: '/item',
+              query: { id: item.id },
+            }}
+          >
+            {item.title}
+          </Link>
         </Title>
         <PriceTag>{formatMoney(item.price)}</PriceTag>
         <p>{item.description}</p>
@@ -41,7 +43,7 @@ class Item extends Component {
             <a> Edit</a>
           </Link>
           <button>Add to Cart</button>
-          <DeleteItem>Delete</DeleteItem>
+          <DeleteItem id={item.id}>Delete</DeleteItem>
         </div>
       </ItemStyles>
     );
