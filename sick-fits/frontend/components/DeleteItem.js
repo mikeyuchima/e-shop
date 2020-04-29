@@ -16,7 +16,7 @@ class DeleteItem extends Component {
   update = (cache, payload) => {
     const data = cache.readQuery({ query: ALL_ITEMS_QUERY });
     data.items = data.items.filter(
-      item => item.id !== payload.data.deleteItem.id,
+      (item) => item.id !== payload.data.deleteItem.id,
     );
     cache.writeQuery({ query: ALL_ITEMS_QUERY, data });
   };
@@ -32,7 +32,7 @@ class DeleteItem extends Component {
             onClick={() => {
               console.log(`props: ${this.props.id}`);
               if (confirm('Are you sure?')) {
-                deleteItem().catch(err => {
+                deleteItem().catch((err) => {
                   alert(err.message);
                 });
               }

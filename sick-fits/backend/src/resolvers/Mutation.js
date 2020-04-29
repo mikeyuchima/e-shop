@@ -2,14 +2,23 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { randomBytes } = require('crypto');
 const { promisify } = require('util');
+
 const { transport, email } = require('../mail');
+const { hasPermission } = require('../utils');
 
 const Mutation = {
   async createItem(parent, args, context, info) {
-    const { title, description } = args;
+    if (!ctx.request.userId) {
+      throw new Error(`You are not logged in!`);
+    }
     const item = await context.db.mutation.createItem(
       {
         data: {
+          user: {
+            connect: {
+              id: ctx.request.userId,
+            },
+          },
           ...args,
         },
       },
@@ -41,8 +50,16 @@ const Mutation = {
       `{
         id
         title
+        user {id}
       }`,
     );
+    const ownsItem = item.user.id === ctx.request.userId;
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ['ADMIN', 'ITEMDELETE'].includes(permission),
+    );
+    if (ownsItem && hasPermissions) {
+      throw new Error(`You don\'t have permission!`);
+    }
     return ctx.db.mutation.deleteItem({ where }, info);
   },
   async signup(parent, args, ctx, info) {
@@ -137,6 +154,34 @@ const Mutation = {
       maxAge: 1000 * 60 * 60 * 24 * 365,
     });
     return updatedUser;
+  },
+  async updatePermissions(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error(`You must be logged in`);
+    }
+    const currentUser = await ctx.db.query.user(
+      {
+        where: {
+          id: ctx.request.userId,
+        },
+      },
+      info,
+    );
+    hasPermission(currentUser, ['ADMIN', 'PERMISSIONUPDATE']);
+
+    return ctx.db.mutation.updateUser(
+      {
+        data: {
+          permissions: {
+            set: args.permissions,
+          },
+        },
+        where: {
+          id: args.userId,
+        },
+      },
+      info,
+    );
   },
 };
 
