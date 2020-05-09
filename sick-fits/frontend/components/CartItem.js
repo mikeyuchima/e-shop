@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import formatMoney from '../lib/formatMoney';
+import RemoveFromCart from './RemoveFromCart';
 
 const CartItemStyles = styled.li`
   padding: 1rem 0;
@@ -18,26 +19,35 @@ const CartItemStyles = styled.li`
   }
 `;
 
-const CartItem = (props) => (
-  <CartItemStyles>
-    <img
-      width='100'
-      src={props.cartItem.item.image}
-      alt={props.cartItem.item.title}
-    />
-    <div className='cart-item-details'>
-      <h3>{props.cartItem.item.title}</h3>
-      <p>
-        {formatMoney(props.cartItem.item.price * props.cartItem.quantity)}
-        {' - '}
-        <em>
-          {props.cartItem.quantity} &times;{' '}
-          {formatMoney(props.cartItem.item.price)}
-        </em>
-      </p>
-    </div>
-  </CartItemStyles>
-);
+const CartItem = (props) => {
+  if (!cartItem.item)
+    return (
+      <CartItemStyles>
+        <p>This item has been removed</p> <RemoveFromCart id={cartItem.id} />
+      </CartItemStyles>
+    );
+  return (
+    <CartItemStyles>
+      <img
+        width='100'
+        src={props.cartItem.item.image}
+        alt={props.cartItem.item.title}
+      />
+      <div className='cart-item-details'>
+        <h3>{props.cartItem.item.title}</h3>
+        <p>
+          {formatMoney(props.cartItem.item.price * props.cartItem.quantity)}
+          {' - '}
+          <em>
+            {props.cartItem.quantity} &times;{' '}
+            {formatMoney(props.cartItem.item.price)}
+          </em>
+        </p>
+      </div>
+      <RemoveFromCart id={cartItem.id} />
+    </CartItemStyles>
+  );
+};
 
 CartItem.propTypes = {
   cartItem: PropTypes.object.isRequired,
